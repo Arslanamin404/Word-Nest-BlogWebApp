@@ -16,9 +16,10 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 8000;
-const MONGO_URL = `${process.env.MONGO_DB_URL}/${db_name}`;
+// const MONGO_URL = `${process.env.MONGO_DB_URL}/${db_name}`;
+const MONGO_CLOUD_URL = `${process.env.MONGO_DB_URL}`;
 
-connect_mongo_db(MONGO_URL);
+connect_mongo_db(MONGO_CLOUD_URL);
 
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
@@ -31,7 +32,7 @@ app.use(checkForAuthenticationCookie("authToken"));
 
 app.use("/user", userRouter);
 app.use("/blog", blogRouter);
-app.use("/admin", authorizeRole(["ADMIN"]),adminRouter);
+app.use("/admin", authorizeRole(["ADMIN"]), adminRouter);
 
 app.get("/", async (req, res) => {
   const allBlogs = await Blog.find({})
