@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Mohammad Arsalan Rather</title>
+    <%- include("../partials/head") %>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <%- include("../partials/navbar") %>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+      <div class="row">
+        <!-- Dashboard Content -->
+        <div class="col-12">
+          <h1 class="mb-4 text-primary">Welcome, Admin!</h1>
+          <p class="lead">
+            Here are some quick actions for managing the application:
+          </p>
+
+          <!-- Quick Actions Section -->
+          <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="col">
+              <div class="card bg-primary-subtle">
+                <div class="card-body">
+                  <h5 class="card-title text-primary">Manage Users</h5>
+                  <p class="card-text">
+                    View, update, or delete user accounts.
+                  </p>
+                  <a href="/admin/users" class="btn btn-primary">Go to Users</a>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card bg-success-subtle">
+                <div class="card-body">
+                  <h5 class="card-title text-success">Manage Blogs</h5>
+                  <p class="card-text">Approve, edit, or delete blog posts.</p>
+                  <a href="/admin/blogs" class="btn btn-success">Go to Blogs</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Statistics Section -->
+          <h2 class="mt-5 mb-3">Statistics</h2>
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+              <div class="card text-white bg-info">
+                <div class="card-body">
+                  <h5 class="card-title fw-semibold">Total Users</h5>
+                  <p class="display-5 fw-bold"><%=userLength%></p>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card text-white bg-warning">
+                <div class="card-body">
+                  <h5 class="card-title fw-semibold">Total Posts</h5>
+                  <p class="display-5 fw-bold"><%=postLength%></p>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card text-white bg-danger">
+                <div class="card-body">
+                  <h5 class="card-title fw-semibold">Total Comments</h5>
+                  <p class="display-5 fw-bold"><%=commentLength%></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%- include("../partials/script") %>
+  </body>
+</html>

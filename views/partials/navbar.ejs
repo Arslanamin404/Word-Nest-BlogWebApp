@@ -1,0 +1,72 @@
+<nav
+  class="navbar navbar-expand-lg bg-dark border-bottom border-body"
+  data-bs-theme="dark"
+>
+  <div class="container-fluid">
+    <a class="navbar-brand fw-semibold" href="/">WORD NEST</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse py-1" id="navbarNavDropdown">
+      <ul class="navbar-nav gap-3 row-gap-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="/">Home</a>
+        </li>
+        <% if (locals.user) { %>
+        <li class="nav-item">
+          <a class="nav-link" href="/blog/add-blog">Add Blog</a>
+        </li>
+        <% if (locals.user.role === "ADMIN") { %>
+        <li class="nav-item">
+          <a class="nav-link" href="/admin/dashboard">Dashboard</a>
+        </li>
+        <% } %>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="javascript:void(0)"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <%= locals.user.first_name %> <%= locals.user.last_name %>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/user/profile">Profile</a></li>
+            <li><a class="dropdown-item" href="/user/logout">Logout</a></li>
+          </ul>
+        </li>
+        <% } else { %>
+        <li class="nav-item">
+          <a class="nav-link" href="/user/signup">Create Account</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/user/signin">Signin</a>
+        </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<% if (locals.error) { %>
+<div class="container mt-4">
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <%= locals.error %>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+</div>
+<% } %>

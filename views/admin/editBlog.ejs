@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog WebApp - Mohammad Arsalan Rather</title>
+    <%- include("../partials/head") %>
+  </head>
+  <body class="bg-secondary-subtle">
+    <%- include("../partials/navbar") %>
+
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+          <!-- Card Container -->
+          <div class="card shadow-sm border-0">
+            <div class="card-header bg-primary text-white text-center">
+              <h4>Edit Blog</h4>
+            </div>
+            <div class="card-body">
+              <!-- Form Starts -->
+              <form
+                action="/admin/blogs/edit/<%=blog._id%>"
+                method="POST"
+                enctype="multipart/form-data"
+              >
+                <!-- Hidden Input for Blog ID -->
+                <input type="hidden" name="blogId" value="12345" />
+
+                <!-- Title Field -->
+                <div class="mb-3">
+                  <label for="title" class="form-label">Blog Title</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="title"
+                    name="title"
+                    placeholder="Enter blog title"
+                    value="<%=blog.title %>"
+                    required
+                  />
+                </div>
+
+                <!-- Content Field -->
+                <div class="mb-3">
+                  <label for="content" class="form-label">Blog Content</label>
+                  <textarea
+                    class="form-control"
+                    id="content"
+                    name="content"
+                    rows="6"
+                    placeholder="Write your blog content here..."
+                    required
+                  >
+                 <%= blog.content %>
+                  </textarea>
+                </div>
+
+                <!-- Image Upload -->
+                <div class="mb-3">
+                  <label for="image" class="form-label"
+                    >Upload Cover Image</label
+                  >
+                  <input
+                    class="form-control"
+                    type="file"
+                    id="image"
+                    name="image"
+                  />
+                  <!-- Display the existing image -->
+                  <% if (blog.coverImage) { %>
+                  <small class="text-muted"
+                    >Current image: <%= blog.coverImage %></small
+                  >
+                  <% } %>
+                </div>
+                <!-- Submit Button -->
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary px-4">
+                    Update Blog
+                  </button>
+                  <a href="/admin/blogs" class="btn btn-secondary px-4 ms-2"
+                    >Cancel</a
+                  >
+                </div>
+              </form>
+              <!-- Form Ends -->
+            </div>
+          </div>
+          <!-- End Card Container -->
+        </div>
+      </div>
+    </div>
+    <%- include("../partials/script")%>
+  </body>
+</html>

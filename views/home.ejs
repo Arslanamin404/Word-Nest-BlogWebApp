@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog WebApp - Mohammad Arsalan Rather</title>
+    <%- include("./partials/head") %>
+  </head>
+  <body class="bg-secondary-subtle">
+    <%- include("./partials/navbar") %>
+    <div class="container my-4">
+      <h3 class="text-center mb-4 fst-italic bg-dark text-light py-3 rounded">
+        Welcome to the
+        <span class="mx-1 fw-bold text-info">WORD NEST</span> your own Blog
+        WebApp
+      </h3>
+      <div class="row g-4">
+        <% allBlogs.forEach(blog => { %>
+        <div class="col-md-4">
+          <div class="card h-100 d-flex flex-column">
+            <!-- Blog Cover Image -->
+            <img
+              src="<%= blog.coverImage %>"
+              class="card-img-top"
+              alt="<%= blog.title %>"
+              style="height: 250px; object-fit: cover"
+            />
+
+            <!-- Card Body -->
+            <div class="card-body d-flex flex-column">
+              <!-- Blog Title -->
+              <h5 class="card-title"><%= blog.title %></h5>
+
+              <!-- Author and Created At -->
+              <p class="text-muted small mb-0">
+                <span class="text-primary fw-semibold"
+                  ><%= blog.author.first_name %> <%=
+                  blog.author.last_name%></span
+                >
+              </p>
+              <p class="text-muted small">
+                <%= new Date(blog.updatedAt).toLocaleDateString('en-US', {
+                month: 'long', day: 'numeric', year: 'numeric' }) %>
+              </p>
+
+              <!-- Read More Button -->
+              <div class="d-grid gap-2 mt-auto">
+                <a href="/blog/<%= blog._id %>" class="btn btn-success btn-lg">
+                  Read More
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+
+    <%- include("./partials/script") %>
+  </body>
+</html>

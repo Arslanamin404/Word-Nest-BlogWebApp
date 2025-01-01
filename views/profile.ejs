@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile</title>
+    <%- include("./partials/head") %>
+  </head>
+  <body>
+    <%- include("./partials/navbar") %>
+
+    <div class="container mt-5">
+      <!-- Profile Card -->
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card shadow-sm">
+            <div class="card-body text-center">
+              <img
+                src="<%= user.profile_picture %>"
+                alt="<%= user.first_name %> <%= user.last_name %>"
+                class="img-fluid rounded-circle mb-3"
+                style="width: 150px; height: 150px"
+              />
+              <h4 class="card-title text-primary">
+                <%= user.first_name %> <%= user.last_name %>
+              </h4>
+              <p class="card-text text-muted mb-2"><%= user.email %></p>
+              <p class="card-text text-muted">
+                <%= new Date(user.createdAt).toLocaleString('en-US', { day:
+                'numeric',month: 'long', year: 'numeric', hour: 'numeric',
+                minute: 'numeric' }) %>
+              </p>
+              <% if (user.role === "ADMIN") { %>
+              <span class="badge bg-info"><%= user.role %></span>
+              <% } else { %>
+              <span class="badge bg-warning"><%= user.role %></span>
+              <% } %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Profile Details and Edit Form -->
+        <div class="col-md-8">
+          <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+              <h5>User Details</h5>
+            </div>
+            <div class="card-body">
+              <form
+                action="/user/profile/update"
+                method="POST"
+                enctype="multipart/form-data"
+              >
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label for="first_name" class="form-label"
+                      >First Name</label
+                    >
+                    <input
+                      type="text"
+                      id="first_name"
+                      name="first_name"
+                      class="form-control"
+                      value="<%= user.first_name %>"
+                      placeholder="Enter first name"
+                      required
+                    />
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="last_name" class="form-label">Last Name</label>
+                    <input
+                      type="text"
+                      id="last_name"
+                      name="last_name"
+                      class="form-control"
+                      value="<%= user.last_name %>"
+                      placeholder="Enter last name"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="email" class="col-sm-3 col-form-label"
+                    >Email</label
+                  >
+                  <div class="col-sm-9">
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="email"
+                      name="email"
+                      value="<%= user.email %>"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="profilePicture" class="col-sm-3 col-form-label"
+                    >Profile Picture</label
+                  >
+                  <div class="col-sm-9">
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="profilePicture"
+                      name="profile_picture"
+                    />
+                  </div>
+                </div>
+                <div class="text-end">
+                  <button type="submit" class="btn btn-primary">
+                    Update Profile
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%- include("./partials/script") %>
+  </body>
+</html>

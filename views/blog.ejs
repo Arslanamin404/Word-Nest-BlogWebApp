@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%=blog.title %> - Mohammad Arsalan Rather</title>
+    <%- include("./partials/head") %>
+  </head>
+  <body>
+    <%- include("./partials/navbar")%>
+
+    <!-- Main Blog Section -->
+    <div class="container my-5">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <!-- Blog Header -->
+          <div class="text-center mb-4">
+            <h1 class="fw-bold"><%= blog.title %></h1>
+            <p
+              class="text-muted d-flex justify-content-center align-items-center gap-1"
+            >
+              By
+              <img
+                src="<%=blog.author.profile_picture%>"
+                class="rounded-circle ml-1"
+                alt="User Avatar"
+                width="20"
+                height="20"
+              />
+              <span class="text-primary"
+                ><%= blog.author.first_name %> <%= blog.author.last_name
+                %></span
+              >
+              | Published on <%= new
+              Date(blog.updatedAt).toLocaleDateString('en-US', { month: 'short',
+              day: 'numeric', year: 'numeric' }) %>
+            </p>
+          </div>
+
+          <!-- Blog Cover Image -->
+          <div class="text-center mb-4">
+            <img
+              src="<%= blog.coverImage %>"
+              class="img-fluid rounded"
+              alt="Blog Cover Image"
+              style="height: 350px; width: 100%; object-fit: cover"
+            />
+          </div>
+
+          <!-- Blog Content -->
+          <article class="fs-5"><%= blog.content %></article>
+
+          <!-- Comments Section -->
+          <div class="mt-5">
+            <h3 class="mb-3">Comments (<%= comments.length %>)</h3>
+            <% if (locals.user) { %>
+            <form
+              class="mb-4"
+              action="/blog/comment/<%= blog._id %>"
+              method="post"
+            >
+              <textarea
+                class="form-control"
+                rows="3"
+                name="text"
+                placeholder="Leave a comment..."
+              ></textarea>
+              <button class="btn btn-primary mt-2">Comment</button>
+            </form>
+            <% } %>
+
+            <!-- Example Comments -->
+            <div class="mb-3">
+              <% comments.forEach(comment => { %>
+              <div
+                class="d-flex align-items-start mb-3 border px-3 pt-3 rounded"
+              >
+                <img
+                  src="<%= comment.author.profile_picture %>"
+                  class="rounded-circle me-3"
+                  alt="User Avatar"
+                  width="50"
+                  height="50"
+                />
+                <div
+                  class="flex-grow-1 d-flex align-items-center justify-content-between"
+                >
+                  <div>
+                    <h6 class="fw-bold mb-0">
+                      <%= comment.author.first_name %> <%=
+                      comment.author.last_name %>
+                    </h6>
+                    <p class="text-muted mb-0" style="font-size: 13px">
+                      <%= new Date(comment.updatedAt).toLocaleString('en-US', {
+                      month: 'long', day: 'numeric', year: 'numeric', hour:
+                      'numeric', minute: 'numeric', second: 'numeric' }) %>
+                    </p>
+                    <p><%= comment.text %></p>
+                  </div>
+
+                  <% if (locals.user && (locals.user._id === comment.author._id
+                  || locals.user._id === blog.author._id)) { %>
+                  <div>
+                    <form
+                      action="/blog/comment/delete/<%= comment._id %>"
+                      method="post"
+                    >
+                      <button type="submit" class="btn btn-danger btn-sm">
+                        Delete
+                      </button>
+                    </form>
+                  </div>
+                  <% } %>
+                </div>
+              </div>
+              <% }) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
